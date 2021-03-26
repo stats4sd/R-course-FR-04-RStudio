@@ -2,9 +2,9 @@
 
 ## ggplot part 2 - Solutions
 
-Make sure ggplot2 library is installed and then loaded correctly!
+Assurez-vous que la bibliothèque ggplot2 est installée puis chargée correctement!
 
-Hopefully you have saved the data and RMD into the same folder, and created a project file for that folder. If so then the BeanSurvey dataset can be read in without modifying the code below.
+J'espère que vous avez enregistré les données et RMD dans le même dossier et créé un fichier de projet pour ce dossier. Si tel est le cas, le jeu de données BeanSurvey peut être lu sans modifier le code ci-dessous.
 
 ```{r}
 
@@ -15,7 +15,7 @@ BeanSurvey<-read.csv("bean_survey.csv")
 
 
 
-**Question 1: I am trying to make a histogram of the farmer's ages with different panels for each village. Can you identify and fix the errors in my code?**
+**Question 1: J'essaie de faire un histogramme des âges de l'agriculteur avec différents panneaux pour chaque village. Pouvez-vous identifier et corriger les erreurs dans mon code?**
 
 
 ggplot(BeanSurvey,aes(x=AGEHH))+
@@ -25,11 +25,11 @@ ggplot(BeanSurvey,aes(x=AGEHH))+
 
 ** Answer
 
-Remember to try to find the errors by running the code and checking the messages. It can be very difficult to just magically spot the error by starting at the code without some help from the error message!
+N'oubliez pas d'essayer de trouver les erreurs en exécutant le code et en vérifiant les messages. Il peut être très difficile de repérer l'erreur par magie en commençant par le code sans l'aide du message d'erreur!
 
-There were two mistakes:
-Firstly the correct geometry should be `geom_histogram()` rather than `geom_hist()`. The autocomplete within the code window could help you with this.
-Secondly the tilda `~` was missing from within `facet_wrap()` - remember this is needed in facet_wrap before the variable name.
+Il y a eu deux erreurs:
+Premièrement, la géométrie correcte devrait être `geom_histogram ()` plutôt que `geom_hist ()`. La saisie semi-automatique dans la fenêtre de code pourrait vous aider.
+Deuxièmement, le tilda `~` manquait dans `facet_wrap ()` - rappelez-vous que cela est nécessaire dans facet_wrap avant le nom de la variable.
 
 ```{r}
 ggplot(BeanSurvey,aes(x=AGEHH))+
@@ -40,7 +40,7 @@ ggplot(BeanSurvey,aes(x=AGEHH))+
 
 
 
-**Question 2a: I am making a barplot of decision making, by gender of the household head. Can you modify the code, so that it looks like the example in the workbook with female headed households coloured in 'purple' and male headed households coloured in 'orange'**
+**Question 2a: Je fais un barplot de prise de décision, par sexe du chef de ménage. Pouvez-vous modifier le code pour qu'il ressemble à l'exemple du cahier de travail avec les ménages dirigés par une femme en couleur 'violet'  et les ménages dirigés par un homme en 'orange'**
 
 ```{r}
 
@@ -52,9 +52,9 @@ ggplot(BeanSurvey,aes(y=DECISIONS))+
 
 ** Answer
 
-To get the required plot we need to make two modifications. Firstly we need to set the `fill` aesthetic to be based on the `GENDERHH` column from the data. The bars have two sorts of colour we can modify - `fill` for the inner region and `colour` for the outline. If we changed `colour` this would still have the bars shaded in grey but with red and blue outlines. This is not what we want! We want the shading colour, the `fill` to be modified. And because we are varying the colour based on a column from the data we set it in the aesethetics not in the geometry.
+Pour obtenir le tracé requis, nous devons effectuer deux modifications. Tout d'abord, nous devons définir l'esthétique de `fill` pour qu'elle soit basée sur la colonne` GENDERHH` à partir des données. Les barres ont deux sortes de couleurs que nous pouvons modifier - 'fill' pour la zone intérieure et 'colour' pour le contour. Si nous changions la 'couleur', les barres seraient toujours grises mais avec des contours rouges et bleus. Ce n'est pas ce que nous voulons! Nous voulons que la couleur de l'ombrage, le `fill` soient modifiés. Et parce que nous faisons varier la couleur en fonction d'une colonne à partir des données, nous la définissons dans l'esthétique et non dans la géométrie.
 
-To use the purple and orange colours we need to modify the fill aesthetic using the correct `scale_` function. Because we are chaning the `fill` aesthetic manually then the function we need to add is `scale_fill_manual`. Inside this function we have two colours that we need specify to the `values` argument because there are two values for `GENDERHH`, so we need to use the `c()` function to bring these colours together.
+Pour utiliser les couleurs violette et orange, nous devons modifier l'esthétique du remplissage en utilisant la fonction correcte `scale_`. Parce que nous modifions manuellement l'esthétique de `fill`, la fonction que nous devons ajouter est` scale_fill_manual`. Dans cette fonction, nous avons deux couleurs que nous devons spécifier dans l'argument `values` car il y a deux valeurs pour` GENDERHH`, nous devons donc utiliser la fonction `c ()` pour rassembler ces couleurs.
 
 
 
@@ -67,13 +67,13 @@ ggplot(BeanSurvey,aes(y=DECISIONS,fill=GENDERHH))+
 ```
 
 
-**Question 2b: Taking the plot you created in Question 2a, now make some changes to the labels: i) remove the y axis label; ii) Change the x axis label to read "Number of Farmers"; iii) Add an informative title**
+**Question 2b: En prenant le tracé que vous avez créé à la question 2a, apportez maintenant quelques modifications aux étiquettes: i) supprimez l'étiquette de l'axe y; ii) Changer l'étiquette de l'axe des x pour lire "Nombre d'agriculteurs"; iii) Ajouter un titre informatif**
 
 ** Answer
 
-I can modify the y axis label so that it is blank "" rather than "remove" it - this is an easier way to achieve the same thing! So all three of my steps can be done in the same function - `labs()` and calling the `y`, `x` and `title` labels.
+Je peux modifier l'étiquette de l'axe y afin qu'elle soit vide "" plutôt que de la "supprimer" - c'est un moyen plus simple de réaliser la même chose! Ainsi, mes trois étapes peuvent être effectuées dans la même fonction - `labs ()` et en appelant les étiquettes `y`,` x` et `title`.
 
-Depending on my screen resolution i might encounter some problems with my title running off the page. This is where it could be useful to also add a call to the `theme` function and make the text size smaller using `element_text()`. An alternative solution could be to split the title into two components - a `title` and a `subtitle`.
+En fonction de la résolution de mon écran, je pourrais rencontrer des problèmes avec mon titre qui sort de la page. C'est là qu'il peut être utile d'ajouter également un appel à la fonction `theme` et de réduire la taille du texte en utilisant` element_text () `. Une solution alternative pourrait être de diviser le titre en deux composants - un 'titre' et un 'sous-titre'.
 
 ```{r}
 ggplot(BeanSurvey,aes(y=DECISIONS,fill=GENDERHH))+
@@ -85,11 +85,11 @@ ggplot(BeanSurvey,aes(y=DECISIONS,fill=GENDERHH))+
 ```
 
 
-**Question 3: Make a scatter plot of the harvested quantities of beans in the long rains against the planted quantity of beans in the long rains. Place the harvested quantity on the y axis, and the planted quantity on the x axis.**
+**Question 3: Faites un diagramme de dispersion des quantités de haricots récoltées pendant les longues pluies par rapport à la quantité plantée de haricots pendant les longues pluies. Placez la quantité récoltée sur l'axe y et la quantité plantée sur l'axe x.**
 
 ** Answer
 
-Here I need to identify the correct columns from the data set and then use the point geometry to make the scatter plot
+Ici, je dois identifier les colonnes correctes de l'ensemble de données, puis utiliser la géométrie ponctuelle pour créer le nuage de points.
 
 ```{r}
 ggplot(BeanSurvey , aes(y=BEANSHARVESTED_LR,x=BEANSPLANTED_LR)) +
@@ -97,13 +97,13 @@ ggplot(BeanSurvey , aes(y=BEANSHARVESTED_LR,x=BEANSPLANTED_LR)) +
 
 ```
 
-**Now consider how to also show how the different villages are associated with this this relationship. 
-Try two different options:
-a) Make different coloured points for each village**
+**Considérons maintenant comment montrer également comment les différents villages sont associés à cette relation.
+Essayez deux options différentes:
+a) Faites des points de couleurs différentes pour chaque village**
 
 ** Answer
 
-The key thing here is to understand that for the default plotting symbol of `geom_point` the way to modify the colour is through `colour` rather than `fill`. So differently to the barchart from Q2, this time I need to map the `colour` aesthetic to the `VILLAGE` column.
+L'essentiel ici est de comprendre que pour le symbole de traçage par défaut de `geom_point`, la manière de modifier la couleur est de «colour» plutôt que de `fill`. Donc, différemment du diagramme à barres de Q2, cette fois, je dois mapper l'esthétique `colour` à la colonne` VILLAGE`.
 
 
 ```{r}
@@ -114,7 +114,7 @@ ggplot(BeanSurvey , aes(y=BEANSHARVESTED_LR,x=BEANSPLANTED_LR,colour=VILLAGE)) +
 
 ```
 
-**b) Put the two villages in different panels**
+**b) Mettez les deux villages dans des panneaux différents**
 
 ** Answer
 
@@ -129,14 +129,14 @@ ggplot(BeanSurvey , aes(y=BEANSHARVESTED_LR,x=BEANSPLANTED_LR)) +
 Remember to use the tilde `~` before the `VILLAGE` when making the facet
 
 
-**Consider which of these two plots shows the relationship more clearly. Take your preferred plot, and tidy up the axis labels and titles.**
+**Considérez laquelle de ces deux parcelles montre la relation plus clairement. Prenez votre tracé préféré et rangez les étiquettes et les titres des axes..**
 
 ** Answer
 
-There are pros and cons to both plots (and lots of further ways to modify the plots as I talked about during the webinar).
-The 'right' plot here depends one exactly what we want to highlight - the facets show the within village patterns much more clearly, but make it harder to compare between villages. The colours allow you to compare the villages more easily, but make seeing the results within each village more difficult. 
+Il y a des avantages et des inconvénients aux deux graphiques (et de nombreuses autres façons de modifier les graphiques, comme j'en ai parlé pendant le webinaire).
+La 'bonne'graphe ici dépend exactement de ce que nous voulons mettre en évidence - les facettes montrent beaucoup plus clairement les modèles à l'intérieur du village, mais rendent plus difficile la comparaison entre les villages. Les couleurs vous permettent de comparer les villages plus facilement, mais rendent plus difficile la visualisation des résultats au sein de chaque village.
 
-We could of course do both! Which is what I've done here and then used labs to label my axes. But of course this is more or less the same presentation as just using the facets, the colour is mostly just a bonus visual element.
+Nous pourrions bien sûr faire les deux! C'est ce que j'ai fait ici et j'ai ensuite utilisé des laboratoires pour étiqueter mes axes. Mais bien sûr, c'est plus ou moins la même présentation que l'utilisation des facettes, la couleur n'est principalement qu'un élément visuel bonus.
 
 ```{r}
 ggplot(BeanSurvey , aes(y=BEANSHARVESTED_LR,x=BEANSPLANTED_LR,colour=VILLAGE)) +
@@ -149,14 +149,14 @@ ggplot(BeanSurvey , aes(y=BEANSHARVESTED_LR,x=BEANSPLANTED_LR,colour=VILLAGE)) +
 ```
 
 
-**Question 4a: Make a plot showing how the quantity of beans harvested in the long rains is related to the household type (`HHTYPE`). Choose a sensible geometry to show this relationship.**
+**Question 4a: Faites un graphique montrant comment la quantité de haricots récoltés pendant les longues pluies est liée au type de ménage (`HHTYPE`). Choisissez une géométrie sensible pour montrer cette relation.**
 
 ** Answer
 
-When considering what sort of plot to make we should always consider what type of variable we have. In this case we have a continuous numeric variable  `BEANSHARVESTED_LR` and a categorical variable `HHTYPE`. A common plot to make here might be a boxplot. However - this would actually be very misleading because of the way the data is distributed. There are very few observations of households in certain 'types' - just two single men and just one 'other'. Because the boxplots provide a summary of the values in each group then we need to have enough observations so that we can form a reasonable and meaningful summary. When you have only a few observations per group probably the better option would be to use a point geometry.
+Lorsque nous considérons le type de graphique à créer, nous devons toujours considérer le type de variable que nous avons. Dans ce cas, nous avons une variable numérique continue `BEANSHARVESTED_LR` et une variable catégorielle` HHTYPE`. Une graphe commune à faire ici pourrait être une boîte à moustaches. Cependant, cela serait en fait très trompeur en raison de la façon dont les données sont distribuées. Il y a très peu d'observations de ménages dans certains 'types' - seulement deux hommes célibataires et un seul 'autre'. Étant donné que les boîtes à moustaches fournissent un résumé des valeurs de chaque groupe, nous devons avoir suffisamment d'observations pour pouvoir former un résumé raisonnable et significatif. Lorsque vous n'avez que quelques observations par groupe, la meilleure option serait probablement d'utiliser une géométrie ponctuelle.
 
-In this case, particularly with the zero values, there are many points overlapping, like in the final question from the previous module. So a jittered scatter plot may be better using geom_jitter.
-A better plot might be possible by combining or removing the small categories. We will learn about this next week!
+Dans ce cas, en particulier avec les valeurs nulles, de nombreux points se chevauchent, comme dans la dernière question du module précédent. Ainsi, un nuage de points jitter peut être préférable en utilisant geom_jitter.
+Un meilleur tracé pourrait être possible en combinant ou en supprimant les petites catégories. Nous en apprendrons davantage la semaine prochaine!
 
 
 ```{r}
@@ -165,7 +165,7 @@ geom_jitter(width=0.1)
 
 ```
 
-**Question 4b: Whatever plot you decided on for question 4a, you may have found that because the labels for the `HHTYPE` variable are quite long, the text along the axis became squashed. Look into the elements which can be customised within `theme` and try to make these labels fit better by decreasing the font size or modifying the angle at which the labels are aligned to the axis**
+**Question 4b: Quelle que soit l'intrigue que vous avez choisie pour la question 4a, vous avez peut-être constaté que, comme les étiquettes de la variable `HHTYPE` sont assez longues, le texte le long de l'axe s'est écrasé. Regardez dans les éléments qui peuvent être personnalisés dans `thème` et essayez de mieux ajuster ces étiquettes en diminuant la taille de la police ou en modifiant l'angle auquel les étiquettes sont alignées sur l'axe.**
 
 ** Answer
 
@@ -176,26 +176,26 @@ geom_jitter(width=0.1)+
 
 ```
 
-In the `theme` function we can find the component we want to modify, the axis text on the x axis, and then use `element_text` to make this more legible. Using angle we can set this to be at 90 degrees (vertical) or at a slight angle, 10 to 15 degrees, and these could provide ways of making the labels easier to read. Just reducing the size of labels will probably make them too small to read!
+Dans la fonction `theme`, nous pouvons trouver le composant que nous voulons modifier, le texte de l'axe sur l'axe des x, puis utiliser` element_text` pour le rendre plus lisible. En utilisant l'angle, nous pouvons le régler à 90 degrés (vertical) ou à un léger angle, 10 à 15 degrés, ce qui pourrait fournir des moyens de rendre les étiquettes plus faciles à lire. Le simple fait de réduire la taille des étiquettes les rendra probablement trop petits pour être lus!
 
 
-**Question 5: Make a plot showing the relationship between the gender of the household head (`GENDERHH`), village, (`VILLAGE`) and whether the household sells any of their beans (`SELLBEANS`). Include nice colours, sensible axis labels, a title, and use one of the custom built-in themes to make the plot look nice. Also consider increasing the font size for some of the labels so they can be read more clearly.**
+**Question 5: Faites un graphique montrant la relation entre le sexe du chef de ménage (`GENDERHH`), du village, (`VILLAGE`) et si le ménage vend ses haricots (`VENDRE`). Incluez de jolies couleurs, des étiquettes d'axe sensibles, un titre et utilisez l'un des thèmes intégrés personnalisés pour rendre l'intrigue agréable. Pensez également à augmenter la taille de la police pour certaines étiquettes afin qu'elles puissent être lues plus clairement.**
 
 ** Answer
 
-There are lots of ways you could have chosen to make a plot here! The way I went about it is just one option.
+Il y a de nombreuses façons que vous auriez pu choisir de faire un graphique ici! La façon dont j'ai procédé n'est qu'une option.
 
-With these three variables the question I am probably most interested in is looking at whether gender of household head and village have any influence on the likelihood that the household sells beans.
-I have three numeric variables so I will be making some bar charts. I can have one variable as the bars, one on the x axis and the third as a facet. The bars should probably represent my outcome-  "selling beans". Structurally it would make most sense to have facets for village and gender on the x axis. The male and female headed households live within a village so grouping in this way is more logical and easier to understand than grouping panels by gender and having village on x axis.
+Avec ces trois variables, la question qui m'intéresse probablement le plus est celle de savoir si le sexe du chef de ménage et du village a une influence sur la probabilité que le ménage vend des haricots.
+J'ai trois variables numériques, je vais donc créer des graphiques à barres. Je peux avoir une variable comme barres, une sur l'axe x et la troisième comme facette. Les barres devraient probablement représenter mon résultat: "ndre des haricots" Structurellement, il serait plus logique d'avoir des facettes pour le village et le sexe sur l'axe des x. Les ménages dirigés par des hommes et des femmes vivent dans un village, donc le regroupement de cette manière est plus logique et plus facile à comprendre que le regroupement des panneaux par sexe et le village sur l'axe des x.
 
-I would quite like my bars to represent percentages rather than frequencies, because I have an unequal number of male and female headed households and i would like to compare them. Using "position=fill" within geom bar converts the bars from counts into proportions.
+J'aimerais bien que mes barres représentent des pourcentages plutôt que des fréquences, car j'ai un nombre inégal de ménages dirigés par des hommes et des femmes et j'aimerais les comparer. L'utilisation de "position = fill" dans la barre geom convertit les barres des décomptes en proportions.
 
-The axis labels are for a proportion - using `scale_y_continuous` i can change this into a percentage by setting the breaks and labels. This will also let me change from the breaks every 25% which is harder to read off the values as comapred to setting the breaks every 20%.
+Les étiquettes des axes sont pour une proportion - en utilisant `scale_y_continuous`, je peux changer cela en pourcentage en définissant les sauts et les étiquettes. Cela me permettra également de changer les pauses tous les 25%, ce qui est plus difficile à lire les valeurs comme comparées à la définition des pauses tous les 20%.
 
 
-I can do a further trick when assigning colours - we are most interest in the % selling beans. And we can always work out the % not selling beans because it will add up to 100%. So when I set my colours - if i set a missing or fake colour for the "not selling beans group" the plot becomes a bit easier to read as I just see the bars making up the % selling beans. 
+Je peux faire une autre astuce lors de l'attribution des couleurs - nous sommes plus intéressés par le% de vente de haricots. Et nous pouvons toujours déterminer le pourcentage de non-vente de haricots, car il totalisera 100%. Ainsi, lorsque je règle mes couleurs - si je règle une couleur manquante ou fausse pour le "groupe de haricots non vendus", l'intrigue devient un peu plus facile à lire car je vois juste les barres constituant le% de vente de haricots.
 
-I've finished off by using the `light` theme which i think looks quite nice, and adding in some labels.
+J'ai terminé en utilisant le thème `light` qui, à mon avis, est plutôt sympa, et en ajoutant quelques étiquettes.
 
 ```{r}
 

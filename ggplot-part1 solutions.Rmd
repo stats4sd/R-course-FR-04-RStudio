@@ -2,9 +2,9 @@
 
 ## ggplot part 1 - Solutions
 
-Make sure ggplot2 library is installed and then loaded correctly!
+Assurez-vous que la bibliothèque ggplot2 est installée puis chargée correctement!
 
-Hopefully you have saved the data and RMD into the same folder, and created a project file for that folder. If so then the BeanSurvey dataset can be read in without modifying the code below.
+J'espère que vous avez enregistré les données et RMD dans le même dossier et créé un fichier de projet pour ce dossier. Si tel est le cas, le jeu de données BeanSurvey peut être lu sans modifier le code ci-dessous.
 
 ```{r}
 
@@ -15,7 +15,7 @@ BeanSurvey<-read.csv("bean_survey.csv")
 
 
 
-**Exercise 1. Replace each of the instances of "ZZZ" from the code below to produce a bar chart showing the frequencies of the household head gender variable `GENDERHH`**
+**Exercice 1. Remplacez chacune des instances de "ZZZ" du code ci-dessous pour produire un diagramme à barres montrant les fréquences de la variable de genre du chef de ménage `GENDERHH`**
 
 
 ggplot(data=ZZZ, aes(x=ZZZ)) + 
@@ -31,13 +31,13 @@ ggplot(data=BeanSurvey, aes(x=GENDERHH)) +
 
 ```
 
-To solve the question we need to replace three ZZZ - first with the name of the data `BeanSurvey` and then with the name of the variable within the mapping `GENDERHH`. Be very careful to make sure you spell these exactly correct with upper and lower case.
+Pour résoudre la question, nous devons remplacer trois ZZZ - d'abord par le nom des données `BeanSurvey` et ensuite par le nom de la variable dans le mappage` GENDERHH`. Faites très attention de les épeler exactement avec des lettres majuscules et minuscules.
 
-We also need to set the correct geom_ - in this case to show a bar chart of frequencies we use `geom_bar`
+Nous devons également définir le bon geom_ - dans ce cas, pour afficher un graphique à barres des fréquences, nous utilisons `geom_bar`
 
 
 
-**Exercise 2. Identify and fix the error(s) in this code to produce a boxplot of age of household head by village**
+**Exercice 2. Identifiez et corrigez les erreurs dans ce code pour produire une boîte à moustaches de l'âge du chef de ménage par village**
 
 
 ggplot2(data = BEANSURVEY,  aes(x = AgeHH, y = Village) 
@@ -51,16 +51,16 @@ ggplot(data = BeanSurvey,  aes(x = AGEHH, y = VILLAGE)) +
   geom_boxplot()
 ```
 
-There are lots of errors!:
-* There is no `+` at the end of the first line
-* In the second line there are two brackets opened but only one is closed
-* The function is `ggplot` not `ggplot2`
-* The data has been entered with the incorrect case - `BeanSurvey` not `BeanSurvey`
-* The variables have been entered with incorrect cases. `AGEHH` not `AgeHH`; `VILLAGE` not `Village`
-* The correct function is `geom_boxplot()`
+Il y a beaucoup d'erreurs!:
+* Il n'y a pas de `+` à la fin de la première ligne
+* Dans la deuxième ligne, il y a deux crochets ouverts mais un seul est fermé
+* La fonction est `ggplot` et non` ggplot2`
+* Les données ont été saisies avec la casse incorrecte - `BeanSurvey` et non` BeanSurvey`
+* Les variables ont été saisies avec des cas incorrects. «AGEHH» et non «AgeHH»; `VILLAGE` pas` Village`
+* La fonction correcte est `geom_boxplot ()`
 
 
-**Exercise 3. Produce a histogram of land area. Set the bins so that each bin covers a range of 1 acre**
+**Exercice 3. Produisez un histogramme de la superficie des terres. Réglez les bacs de sorte que chaque bac couvre une plage de 1 acre**
 
 ** Answer
 
@@ -75,7 +75,7 @@ ggplot(data=BeanSurvey,aes(x=LANDAREA))+
   geom_histogram()
 
 ```
-Once we have this we can think about modifying to only cover 1 acre per bin. We need to find the option `binwidth` from within the geom_histogram function
+Une fois que nous avons cela, nous pouvons penser à modifier pour ne couvrir que 1 acre par bac. Nous devons trouver l'option `binwidth` à partir de la fonction geom_histogram.
 
 ```{r}
 ggplot(data=BeanSurvey,aes(x=LANDAREA))+
@@ -84,7 +84,7 @@ ggplot(data=BeanSurvey,aes(x=LANDAREA))+
 
 
 
-**Exercise 4. Make a scatter plot showing the number of adults on the x axis against the number of children on the y axis. Can you see any limitations to this plot?**
+**Exercice 4. Faites un nuage de points montrant le nombre d'adultes sur l'axe des x par rapport au nombre d'enfants sur l'axe des y. Pouvez-vous voir les limites de cette grap?**
 
 ** Answer 
 
@@ -97,10 +97,11 @@ geom->point
 ggplot(data=BeanSurvey,aes(x=ADULTS,y=CHILDREN))+
   geom_point()
 ```
-A limitation here is that we have lots of overlapping observations. e.g. lots of people in our data have 2 adults and 3 children. But we only see one point. This could be a case where we might want to do a jitter plot instead.
+Une limitation ici est que nous avons beaucoup d'observations qui se chevauchent. par exemple. beaucoup de personnes dans nos données ont 2 adultes et 3 enfants. Mais nous ne voyons qu'un seul point. Cela pourrait être un cas où nous pourrions vouloir faire le graphe de jitter à ce lieu.
+
 
 ```{r}
 ggplot(data=BeanSurvey,aes(x=ADULTS,y=CHILDREN))+
   geom_jitter(width=0.1,height=0.1)
 ```
-The width and height control how much away from the centre the points are allowed to jitter
+La largeur et la hauteur contrôlent à quelle distance du centre les points sont autorisés à mouvementer.

@@ -1,0 +1,121 @@
+---
+title: "Module 2 - Solutions"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE,message=FALSE,echo=FALSE}
+
+library(tidyverse)
+library(knitr)
+
+BeanSurvey<-read.csv("bean_survey.csv")[,-1]
+
+BeanSurvey$AGEHH<-c(32,57,20,55,78,42,28,49,41,54,65,63,32,29,43,68,53,39,25,44,23,47,32,26,25,29,44,23,58,69,26,65,75,51,38,24,35,29,37,45,50,23,60,32,70,43,51,28,65,33)
+
+
+BeanSurvey<-mutate(BeanSurvey,GENDERHH=ifelse(is.na(GENDERHH),"male",as.character(GENDERHH)))
+
+
+```
+
+## Solutions
+
+Tous les exercices utilisent les données de l'enquête "BeanSurvey" avec lesquelles nous avons travaillés jusqu'à présent - n'oubliez pas que vous pouvez également revenir en arrière pour consulter la description des données et des variables.
+
+**Exercice 1. Remplacez chacune des occurrences de "ZZZ" du code ci-dessous pour produire un diagramme en barres indiquant les fréquences de la variable "sexe du chef de ménage" `GENDERHH`**
+
+
+```
+
+ggplot(data=ZZZ, aes(x=ZZZ)) + 
+  geom_ZZZ()
+
+```
+
+```{r}
+
+ggplot(data=BeanSurvey, aes(x=GENDERHH)) + 
+  geom_bar()
+
+```
+
+Pour résoudre la question, nous devons remplacer trois ZZZ - d'abord par le nom de la donnée "BeanSurvey" et ensuite par le nom de la variable dans la cartographie "GENDERHH". Faites très attention à l'orthographe exacte de ces trois ZZZ, avec des majuscules et des minuscules.
+
+Nous devons également définir le `geom_` correct - dans ce cas, pour afficher un diagramme en barres des fréquences, nous utilisons `geom_bar`.
+
+
+**Exercice 2. Identifiez et corrigez les erreurs dans ce code ou j'essaye de produire une boite a moustache (boxplot) de l'âge du chef de ménage par village**
+
+```
+ggplot2(data = BEANSURVEY,  aes(x = AgeHH, y = Village) 
+  geom_box()
+```
+
+```{r}
+ggplot(data = BeanSurvey,  aes(x = AGEHH, y = VILLAGE)) +
+  geom_boxplot()
+```
+
+Il y a beaucoup d'erreurs! :
+* Il n'y a pas de "+" à la fin de la première ligne
+* A la deuxième ligne, deux parenthèses sont ouvertes mais une seule est fermée
+* La fonction est "ggplot" et non "ggplot2"
+* Les données ont été saisies avec la casse incorrecte - "BeanSurvey" et non "BEANSURVEY".
+* Les variables ont été saisies avec des casses incorrects. "AGEHH" et non pas "AgeHH" ; "VILLAGE" et non pas "Village
+* La fonction correcte est `geom_boxplot()`
+
+
+**Exercice 3. Produisez un histogramme de la superficie du terrain. Faites en sorte que la largeur des barres corresponde a une superficie de 1 acre**
+
+Nous devons d'abord decomposer la question dans les différents éléments du ggplot :
+data-> BeanSurvey
+aesthetics->x->LANDAREA
+geom->histogram
+
+```{r}
+
+ggplot(data=BeanSurvey,aes(x=LANDAREA))+
+  geom_histogram()
+
+```
+Une fois que nous avons une premiere version de notre graphique, nous pouvons envisager de le modifier un peu, pour que la largeur de chaque barre mesure un acre. La largeur des barres est definie par l'argument `binwidth` dans la fonction geom_histogram
+
+```{r}
+ggplot(data=BeanSurvey,aes(x=LANDAREA))+
+  geom_histogram(binwidth = 1)
+```
+
+
+
+**Exercice 4. Faites un nuage de points montrant le nombre d'adultes sur l'axe des x par rapport au nombre d'enfants sur l'axe des y. Voyez-vous des limites à ce diagramme ?**
+
+data-> BeanSurvey
+aesthetics->x->CHILDREN
+aesthetics->y->ADULTS
+geom->point
+
+```{r}
+ggplot(data=BeanSurvey,aes(x=ADULTS,y=CHILDREN))+
+  geom_point()
+```
+Un soucis ici est que nous avons beaucoup d'observations qui se chevauchent. Par exemple, beaucoup d'observations dans nos données ont 2 adultes et 3 enfants. Mais nous ne voyons qu'un seul point. Il s'agit d'un cas où nous voudrions demander a R de faire un nuage de points avec l'ajout d'un petit déplacement vertical et horizontal aléatoire pour chaque point, ce qui correspond a la géométrie 'jitter':
+
+```{r}
+ggplot(data=BeanSurvey,aes(x=ADULTS,y=CHILDREN))+
+  geom_jitter(width=0.1,height=0.1)
+```
+Les argument `width` (largeur) et `height` (hauteur) déterminent à l'amplitude maximale des petits déplacement aléatoires demandées.
+
+Enfin une question posée durant le webinaire fut celle de savoir comment on peut ajuster la graduation de l'axe des x. On peut faire cela en utilisant la fonction `scale_x_continuous`, et l'argument `breaks` qui fait partie des choses qui sont discutées dans le prochain tutoriel!
+
+```{r}
+ggplot(data=BeanSurvey,aes(x=ADULTS,y=CHILDREN))+
+  geom_jitter(width=0.1,height=0.1) +
+    scale_x_continuous(breaks=c(0,2,4,6,8,10,12,14,16))
+```
+
+ Comme vous pouvez le voire, il faut mettre un `+` a la fin de la ligne précédente, car la fonction utilisée continue la commande... et c'est ce que j'avais oublié durant le webinaire, une seconde fois! Bouh, il faut que je fasse attention moi avec les `+`! 
+ 

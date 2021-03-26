@@ -1,5 +1,5 @@
 ---
-title: "Using Rstudio and R Markdown files"
+title: "Utiliser Rstudio et les documents R Markdown"
 output: 
   learnr::tutorial:
     progressive: true
@@ -7,7 +7,7 @@ output:
     df_print: default
 runtime: shiny_prerendered
 description: >
-  Learn how to use RStudio and R Markdown files.
+  Apprenez à utiliser RStudio et les documents R Markdown.
 ---
 
 
@@ -19,86 +19,83 @@ tutorial_options(exercise.timelimit = 10)
 ```
 
 
-## Overview
+## Vue d'ensemble
 
-In this session, we will guide you through the process of setting up R and RStudio on your computer, and start familiarising yourself with good practice for using RStudio. We will cover installing packages, using projects, and writing scripts using the markdown format. Now that you have learnt some R code already in the first three sessions, hopefully it will become a little bit clearer how you can then interact with RStudio for your own work, and how and why these features are useful. 
+Dans cette session, nous vous guiderons tout au long du processus de configuration de R et RStudio sur votre ordinateur, et commencerons à vous familiariser avec les bonnes pratiques d'utilisation de RStudio. Nous couvrirons l'installation de packages, l'utilisation de projets RStudio et l'écriture de scripts en utilisant le format markdown. Maintenant que vous avez déjà appris du code R au cours des trois premières sessions, j'espère qu'il deviendra un peu plus clair comment vous pouvez ensuite interagir avec RStudio pour votre propre travail, et comment et pourquoi les fonctionnalités de RStudio sont utiles.
 
-This module is a little different to the previous four modules - there won't be any interactive code windows in this workbook. Instead you will be working through this workbook to provide steps which cover the installation and orientation of R and RStudio on your own machine.
+Ce module est un peu différent des quatre modules précédents - il n'y aura pas de fenêtre de code interactif dans ce tutoriel. Au lieu de cela, ce tutoriel vous donnera les étapes pour installer R et RStudio sur votre propre ordinateur et se familiariser avec ces logiciels.
 
-There are a series of great video resources going along with this session... but we didn't produce these ourselves. Rather than reinventing the wheel here, we are referring to a series of videos by the statistician Andy Field. The full resource he put together for getting started with RStudio can be found <a href="http://milton-the-cat.rocks/learnr/r/r_getting_started" target="_blank">here.</a>
+Il y une série de vidéos en anglais qui couvre un contenu similaire a ce tutoriel et produite par le statisticien Andy Field qui, peut etre utiles pour ceux qui aiment ce genre de format. Vous trouverez ses videos <a href="http://milton-the-cat.rocks/learnr/r/r_getting_started" target="_blank">ici.</a> Les videos sont hebergees sur Youtube, donc vous pouvez utiliser la methode habituelle pour activer l'affichage de sous-titres en francais.
 
 
-## Installing R and RStudio
+## Installation de R et RStudio
 
-Both R and RStudio are open source software tools, so these can be downloaded from the internet for free, forever. 
+R et RStudio sont des logiciels gratuits et libres, ils peuvent être téléchargés sur Internet gratuitement, pour toujours.
 
-Even if you have prior installations of R or RStudio on your computer - please ensure you download and install the most recent versions of both programs. R and RStudio are both updated on a very regular basis, and some of the features we may highlight in this course may not be available if you are using an older version. 
+Même si vous avez déjà installé R ou RStudio sur votre ordinateur, assurez-vous de télécharger et d'installer les versions les plus récentes des deux programmes. R et RStudio sont tous deux mis à jour très régulièrement, et certaines des fonctionnalités dont nous parlons dans ce cours peuvent ne pas être disponibles si vous utilisez une version plus ancienne.
 
-<a href="http://milton-the-cat.rocks/learnr/r/r_getting_started/#section-installing-r-and-rstudio" target="_blank">Video covering the installation process</a>
+<a href="https://www.youtube.com/watch?v=o7o5adwuhdo" target="_blank">Voila une vidéo couvrant le processus d'installation de R et RStudio</a>
 
-The first thing to install is the most recent version of R for your operating system:
-<a href="https://cran.r-project.org/bin/windows/base/" target="_blank">Download R for Windows</a>
+La première chose à installer est la version la plus récente de R pour votre système d'exploitation:
+<a href="https://cran.r-project.org/bin/windows/base/" target="_blank">Télécharger R pour Windows</a>
 
-<a href="https://cran.r-project.org/bin/macosx/" target="_blank">Download R for Mac</a>
+<a href="https://cran.r-project.org/bin/macosx/" target="_blank">Télécharger R pour Mac</a>
 
-Once you have completed the installation of R you can download RStudio, the link below should provide the recommended link to download based on your operating system.
+Une fois que vous avez terminé l'installation de R, vous pouvez télécharger RStudio. Le lien ci-dessous devrait vous enmener a la page de telechargement qui convient a votre système d'exploitation.
 <a href="https://rstudio.com/products/rstudio/download/#download" target="_blank">Download RStudio</a>
 
-You should not need to change any of the default settings as you work through the installation process. If you are having any issues with the downloading and installation process please make sure that you have administrator rights on the computer you are working on. Please remember that you can use the help forum at any time if you are struggling with these steps.
+Vous ne devriez pas avoir besoin de modifier les paramètres durant le processus d'installation. Si vous rencontrez des problèmes, assurez-vous que vous disposez des droits administrateur sur l'ordinateur sur lequel vous travaillez. N'oubliez pas que vous pouvez utiliser le forum d'aide à tout moment si vous rencontrez des difficultés avec ces étapes.
 
-## Overview of R
+## Aperçu de R
 
-It is worth remembering that R is a standalone program that you could use; and very occasionally when you look up resources online you will see people using R without using RStudio. This is something that you will never need to do. But it might be useful to open up R now to see how things used to be for R users, before RStudio came along.
-If you search in your program files you should find it:
+R est un programme autonome que vous pouvez utiliser tel quel; et très occasionnellement, lorsque vous recherchez de l'aide en ligne, vous verrez des personnes utiliser R sans utiliser RStudio. C'est quelque chose que vous n'aurez jamais besoin de faire. Mais il pourrait être utile d'ouvrir R maintenant pour voir comment les choses se passaient autrefois pour les utilisateurs de R, avant l'arrivée de RStudio.
+Si vous cherchez dans votre menu demarrer ou bien dans vos *programme files*, vous devriez voir une icone comme celle-ci:
 
 ```{r echo=FALSE, out.width="10%", fig.align='left'}
 knitr::include_graphics("images/rlogo.jpg")
 ```
 
 
-Opening R you see a very old fashioned, and quite intimidating interface! There are very few features within the R GUI to help you get started, or optimise your workflow at all.
+Si vous ouvrez le programme (en double cliquant sur l'icone par exemple), vous verrez une interface très démodée et assez intimidante! Il existe très peu de fonctionnalités dans l'interface graphique R pour vous aider à utiliser R efficacement.
 
-You can see a console window in which you can run write and run commands. So I could try and see if 2+2 still equals 4:
+Vous pouvez voir une fenêtre de console dans laquelle vous pouvez exécuter des commandes. Je pourrais donc essayer de voir si 2 + 2 égale toujours 4:
 
 ```{r echo=FALSE, out.width="90%", fig.align='center'}
 knitr::include_graphics("images/Rinterface.JPG")
 ```
 
 
-And I can see that R is at least functioning correctly.
+Et je peux voir que R fonctionne au moins correctement.
 
-The general user un-friendliness is what led to many people making IDE (Interactive Development Environment) tools, to make working with R easier. RStudio was not the first of these, but over time it has become the only method for working with R for the majority of R users. 
+La non-convivialité de l'interface globale de R est ce qui a conduit de nombreuses personnes à créer des outils IDE (environnement de développement interactif), pour faciliter le travail avec R. RStudio n'était pas le premier d'entre eux, mais au fil du temps, il est devenu l'interface que la grande majorité des utilisateurs de R utilise.
 
-You can now close down R and head straight over to RStudio.
+Vous pouvez maintenant fermer R et vous diriger directement vers RStudio!
 
-## Overview of RStudio
+## Vue d'ensemble de RStudio
 
-Andy Field's video gives you an overview of RStudio that should help you orientate yourself as a new user to the purpose of each of the different panes within the RStudio environment.
+Vous pouvez explorer le logiciel par vous meme, ou bien regarder cette vidéo d'Andy Field qui vous donne un aperçu de RStudio qui devrait vous aider à vous orienter en tant que nouvel utilisateur de l'environnement RStudio.
 
 <a href="http://milton-the-cat.rocks/learnr/r/r_getting_started/#section-a-quick-tour-of-r-studio" target="_blank">A quick tour of R Studio</a>
 
-I'd suggest watching this back-to-back with the next video in the sequence, which starts moving into more specifics about how you can get started with some work!
+Je suggérerais de regarder ceci et d'enchainer aussi avec la prochaine vidéo de la serie, qui commence à entrer plus en détail sur la façon dont vous pouvez commencer à travailler.
 
 <a href="http://milton-the-cat.rocks/learnr/r/r_getting_started/#section-working-in-rstudio" target="_blank">Working in RStudio</a>
 
 
-Rather than creating a new file from scratch right now, you can download the solutions from the intro module as a workbook [here](https://github.com/stats4sd/R4CCRP_04_rstudio/raw/main/intro-module-solutions.zip). 
+Plutôt que de créer un nouveau fichier script R à partir de zéro, vous pouvez commencer par télécharger la version fichier RMD des solutions du module d'introduction [ici](https://github.com/stats4sd/R-course-FR-04-RStudio/raw/main/solutions-intro.zip). 
 
-And if you then open this up in RStudio (Using the menu system: File->Open File) you can get an idea of how the interface works. 
-
-
-Once opened, your window should look something like this
+Si vous ouvrez ce fichier dans RStudio (en utilisant le menu: File -> Open File...), votre fenêtre devrait ressembler plus ou moins à ceci
 
 ```{r echo=FALSE, out.width="90%", fig.align='center'}
 knitr::include_graphics("images/Window.JPG")
 ```
 
 
-One of the first things I would suggest doing is minimising the console window. We never want to write commands in the console window directly - always use some form of a script file so that you can keep a track of all of the commands you are writing. It's important to make sure our work is reproducible, that errors can be easily identified and fixed, and that we can easily update and build upon what we have done so far.
+L'une des premières choses que je suggérerais de faire est de minimiser la fenêtre de la console. Il est rare que nous ecrivion des commandes directement dans la fenêtre console - utilisez toujours une forme de fichier script afin que vous puissiez garder une trace de toutes les commandes que vous écrivez. Il est important de nous assurer que notre travail est reproductible, que les erreurs peuvent être facilement identifiées et corrigées, et que nous pouvons facilement mettre à jour et continuer de travailler sur ce que nous avons fait jusque la.
 
-If you look at the RMD (R Markdown) file containing the solutions you can see two distinct types of content on the page. You have text - where you can write whatever you like. And you have 'chunks' of R code, where you can only write valid R code.
+Si vous ce fichier RMD (R Markdown) contenant les solutions, vous pouvez voir deux types de contenu distincts sur la page. Vous avez du texte - où vous pouvez écrire ce que vous voulez. Et vous avez des «morceaux» de code R, où vous ne pouvez écrire que du code R valide.
 
-Pressing the green button to the right of the chunk of code will run the code. The output will then appear directly below the code within the RMD document.
+Appuyez sur le bouton vert à droite du morceau de code pour exécuter le code. La sortie apparaîtra alors directement sous le code dans le document RMD.
 
 ```{r echo=FALSE, out.width="70%", fig.align='center'}
 knitr::include_graphics("images/RunningCode.JPG")
@@ -106,132 +103,137 @@ knitr::include_graphics("images/RunningCode.JPG")
 
 
 
-Make good use of the spaces between the chunks of code! This is extremely useful for you to add comments as you work through your analysis - explaining the logic behind particular steps, or reminding yourself of key pieces of information.
+Faites bon usage des espaces entre les morceaux de code! Ceci est extrêmement utile pour ajouter des commentaires au fur et à mesure que vous travaillez dans votre analyse - en expliquant la logique derrière certaines étapes ou en vous rappelant des informations clés.
 
-When you work down to the bottom of the solutions you will reach the examples where objects were created to solve problems. As you run these lines you will see things start to appear in the environment window, showing you all of the user created objects produced in this R session.
+Si vous continuez a cliquer sur le bouton vert en descendant dans le document pour pour executer les commandes, vous atteindrez les exemples où des objets sont créés. Au fur et à mesure que vous exécutez ces lignes, vous verrez des éléments commencer à apparaître dans la fenêtre d'environnement en haut a droite. Ceux-ci vous montrent tous les objets créés dans cette session R.
 
 ```{r echo=FALSE, out.width="70%", fig.align='center'}
 knitr::include_graphics("images/objects in environment.JPG")
 ```
 
 
-## Working with projects
+## Travailler en projets RStudio
 
-You can download the solutions for the ggplot part 1 module in RMD format, and the data file used, in CSV format [here](https://github.com/stats4sd/R4CCRP_04_rstudio/raw/main/ggplot-part1-solutions.zip)
+Vous pouvez télécharger les solutions du module ggplot part 1 au format RMD, et le fichier de données utilisé, au format CSV [ici](https://github.com/stats4sd/R-course-FR-04-RStudio/raw/main/ggplot-part1-solutions.zip)
 
-This is a good opportunity to learn about working with project files, importing data, and installing and loading packages.
+C'est une bonne occasion d'apprendre à travailler en "projet", à importer des données et à installer et charger des packages.
 
-First of all - we should start by extracting the contents of that zip file into a sensible folder somewhere on your computer. 
+Tout d'abord, nous devrions commencer par extraire le contenu de ce fichier zip dans un dossier pertinant quelque part sur l'ordinateur.
 
-Then we can create a new project in RStudio (File->New Project) and setting this to an "Existing Folder" - the folder where you just extracted these files to. As explained in the video, projects are a really useful way of keeping your work organised, and making it easy to link to input data files and store output files in a coherent workflow.
+Ensuite, nous pouvons créer un nouveau projet dans RStudio (File -> New projet) et en choisissant comme "Existing Directory" - le dossier dans lequel vous venez d'extraire les fichiers. Vous verrez rapidement que creer des projets RStudio est un moyen très utile de garder votre travail organisé, de faciliter l'acces a vos données et la sauvegarde des fichiers et graphiques que vous produirez.
 
-In the files pane, you should now see that this has navigated to the folder you just assigned the project to. It will also create a new .RProj file, which is the R project file. If you go away from RStudio, and come back another time you can reload your session exactly where you left it by opening this .RProj file. The project file automatically saves as you work. There is also a project menu in the top right corner which will let you switch between recently used projects, or create new projects.
+Dans l'onglet "Files" de la fenetre en bas a droite de RStudio, vous devriez maintenant voir que RStudio a navigué vers le dossier auquel vous venez d'attribuer le projet. Il créera également un nouveau fichier .RProj, qui est le fichier de projet R. Si vous quittez RStudio et revenez une autre fois, vous pouvez recharger votre session exactement là où vous l'avez laissée en ouvrant ce fichier .RProj. Le fichier projet est automatiquement enregistré au fur et à mesure que vous travaillez. Il existe également un menu de projet dans le coin supérieur droit qui vous permettra de basculer entre les projets récemment utilisés ou de créer de nouveaux projets.
 
-As the file pane should now be showing you the folder where you extracted the module 2 solutions, you should be able to open it by just clicking on it.
+Comme l'onglet "Files" vous montre maintenant le dossier dans lequel vous avez sauvegarde les solutions du module 2, vous devriez pouvoir ouvrir le fichier Rmd en cliquant dessus.
 
-## Installing Packages
 
-### Automatically through the 'install' prompt at the top of the file
-When you do this you will probably see a prompt at the top of the RMD window telling you that the ggplot2 package is used in this script, but has not been installed. 
+## Installation des packages
+
+### Automatiquement en cliquant sur 'install' en haut du fichier
+Apres avoir ouvert le fichier, vous verrez probablement un message jaune en haut de la fenêtre de script, vous indiquant que le package ggplot2 est utilisé dans ce script, mais n'a pas été installé.
 
 ```{r echo=FALSE, out.width="70%", fig.align='center'}
 knitr::include_graphics("images/ggplot2 not installed.JPG")
 ```
 
 
-You will see this message when your file contains a call to `library()` but the package inside that function is not installed. 
+Vous verrez ce message lorsque votre fichier contient un appel à `library()` mais que le package à l'intérieur de cette fonction n'est pas installé.
 
-To install ggplot2 you can then click on the install button at the top of your page and this will then connect to the CRAN repository to download it. Check the final message which appears. If you see something which ends with 'success' then the package has installed correctly! If you see an error message after trying to install a package then you have run into an issue. Don't be afraid to ask for help if you come across issues in this process for package installation at first, as there can sometimes be firewall, or other compatibility issues, which can be resolved with a bit of technical support.
+Pour installer ggplot2, vous pouvez simplement cliquer sur le bouton d'installation propose par le message jaune et celui-ci devrait connecter R au "CRAN" pour télécharger le package. Vérifiez le message final qui apparaît en bas a gauche, dans la l'onglet "Console". Si vous voyez quelque chose qui se termine par «succes», le package s'est installé correctement! Si vous voyez un message d'erreur lorsque vous essayez de charger le package, vous avez rencontré un problème. N'ayez pas peur de demander de l'aide si vous rencontrez des problèmes dans ce processus d'installation, car il peut parfois y avoir un pare-feu ou d'autres problèmes de compatibilité, qui peuvent être résolus avec un peu de support technique.
 
-### Manually from the bottom right pane
+### Manuellement, part l'onglet "Packages" en bas a droite
 
-It might also happen for some reason that you don't see the yellow message at the top of the RMD window - maybe you closed it or clicked the *Don't show again* button. In that case, try running the library commands. Who knows, maybe the package is already installed. If it is not, you will see the following type of error:
+Cela peut également arriver pour une raison quelconque que vous ne voyez pas le message jaune en haut de la fenêtre RMD - peut-être que vous l'avez fermée ou bien vous avez cliqué sur le bouton *Don't show again*. Dans ce cas, essayez d'exécuter les commandes `library()`. Qui sait, peut-être que le package est déjà installé. Si ce n'est pas le cas, vous verrez une erreur de ce type la:
 
 > Error in library(ggplot2) : there is no package called ‘ggplot2’
 
-The simplest is then to install the package manually by:
+Le plus simple est alors d'installer le package manuellement en:
 
-- clicking the `Packages` tab in the bottom right pane.
+- cliquant sur l'onglet `Packages` dans la fenetre en bas a droite.
 
 ```{r echo=FALSE, out.width="90%", fig.align='center'}
 knitr::include_graphics("images/packges tab.JPG")
 ```
 
-- clicking the `Install` button.
+- cliquant sur le bouton "Install".
 
 ```{r echo=FALSE, out.width="70%", fig.align='center'}
 knitr::include_graphics("images/install button.JPG")
 ```
 
-- typing the name of the package in the 'Packages' field, and press **Install**
+- tapant le nom du package dans le champ 'Packages', avant d'appuyer sur **Install**
 
 ```{r echo=FALSE, out.width="90%", fig.align='center'}
 knitr::include_graphics("images/install window.JPG")
 ```
 
-You then wait a little and if, as said just above, you see something which ends with 'success' then the package has installed correctly. If instead you see some error, that's time to look for help!
+Attendez un peu et si, comme dit juste au-dessus, vous voyez quelque chose qui se termine par «succes» alors le paquet s'est installé correctement. Si à la place vous voyez une erreur, il est temps de chercher de l'aide!
 
 
-You can watch the video about installing and loading packages here:
+Peut-etre que cette vidéo sur l'installation et le chargement des packages peut vous aider si vous n'etes pas sur d'avoir bien suivi:
+
 <a href="http://milton-the-cat.rocks/learnr/r/r_getting_started/#section-installing-and-loading-packages" target="_blank">Installing and loading packages</a>
 
-## Markdown Files
 
-The video introduction for writing R scripts can be found here:
+## Fichiers R Markdown
+
+Cette vidéo decrit l'utilisation de scripts R Markdown dans Rstudio:
 <a href="http://milton-the-cat.rocks/learnr/r/r_getting_started/#section-r-markdown" target="_blank">R Markdown</a>
 
-If you have set the project file, and installed ggplot2 you should now be able to go through the solutions file and run each of the chunks of code to see the 'solved' answers.
-Make sure you work through sequentially. Loading the packages and the data first, otherwise the later steps will not run. You can see from the first chunk a new function `read.csv` being used to read the data file in. We will learn more about reading in data in the second part of this module, but for now you can trust that, as long as you set up your project correctly, this line will read in the datafile and store it in R as an object called BeanSurvey. When you run this line you should see it appear in your environment pane.
+Si vous avez ouvert le fichier Rmd et installé ggplot2, vous devriez maintenant pouvoir parcourir le fichier de solutions et exécuter chacun des morceaux de code pour voir les réponses «résolues».
+Assurez-vous de travailler de manière séquentielle. Charger d'abord les packages (avec les commandes "library()") et les données, sinon les étapes ultérieures ne seront pas exécutées. Vous pouvez voir à partir du premier bloc une nouvelle fonction `read.csv` utilisée pour lire le fichier de données. Nous en apprendrons plus sur la lecture des données dans la deuxième partie de ce module, mais pour l'instant vous pouvez avoir confiance en cela, si vous avez bien creer un projet dans le dossier dans lequel vous avez mis les donnees et le fichier Rms, cette ligne lit le fichier de données et le stocke dans R sous la forme d'un objet appelé BeanSurvey. Lorsque vous exécutez cette ligne, vous devriez la voir apparaître dans votre onglet environnement en haut a droite.
 
 
-And if you click on it within that environment pane, it will open a (non-editable) spreadsheet like interface to view the data.
+Et si vous cliquez sur son nom dans cet onglet, vous verrez qu'un onglet s'ouvrira dans la fenetre de script pour afficher les données (de facon non modifiable).
 
 ```{r echo=FALSE, out.width="70%", fig.align='center'}
 knitr::include_graphics("images/viewer.JPG")
 ```
 
 
-When writing your own markdown files there are a few key points to remember:
+Lorsque vous creez vos propres fichiers R Markdown, il y a quelques points clés à retenir:
 
-1. Work sequentially! Always start by loading libraries and data; and put data manipulation steps before moving into analysis.
+1. Travaillez séquentiellement! Commencez toujours par charger les packages et les données; et mettez les étapes de manipulation des données avant de passer à l'analyse.
 
-2. Unless you are sharing with someone else to try to resolve an error, don't keep any code that you couldn't get to work within the document. We would like to have clear organisation of our commands, and not have things included that don't work. But remember for those things...
+2. À moins que vous ne partagiez avec quelqu'un d'autre pour essayer de résoudre une erreur, ne gardez aucun code que vous ne pourriez pas utiliser dans le document. Nous souhaitons toujours avoir une organisation claire de nos commandes et ne pas inclure de choses qui ne fonctionnent pas.
 
-3. Use the areas around the code chunks to write explanations and comments about what you are doing, and why you are doing it. Particularly if you have come across something new or exciting. Or (following from pt 2) if you get stuck- you can write comments about your problems when sharing. Your code may make perfect sense to you now - but when you come back next week, or next month... or next year, it might not make so much sense then.
+3. Utilisez les zones autour des morceaux de code pour écrire des explications et des commentaires sur ce que vous faites et pourquoi vous le faites. Surtout si vous êtes tombé sur quelque chose de nouveau ou d'excitant. Ou bien (à la suite du point 2) si vous êtes bloqué, vous pouvez écrire des commentaires sur vos problèmes. Car votre code peut sembler tout a fait comprehensible pour vous maintenant, mais lorsque vous reviendrez la semaine prochaine, ou le mois prochain ... ou l'année prochaine, cela sera peut-être beaucoup plus compliquer de se souvenir des raisons pour lesquelles vous avez decide de lancer telle ou telle commande.
 
-4. Be careful about breaking the formatting style of the code chunks, by accidentally modifying or deleting the way they appear. It is safer to use the "Insert->R" button from the top right to add in chunks rather than try to write these out, or copy them.
+4. Faites attention à ne pas changer le formatage des morceaux de code, en modifiant ou supprimant accidentellement la façon dont ils apparaissent. Il est plus sûr d'utiliser le bouton  vert "+C" puis de choisir "R" en haut de la fenetre pour ajouter des blocs de code plutôt que d'essayer de les creer manuellement ou les copier.
  
-One of the great things about using R markdown files, is how easy it is to export results outside of R. As long as you have followed my key points 1->4 above, then you should be able to easily convert all of your output and all of your text into a beautiful report, in your choice of format (PDF/Word/HTML) by simply pressing the knit button at the top of the window and selecting the output format. You will always be prompted to save your document, if there are unsaved changes, before any output is made. 
-
+L'un des grands avantages a utiliser des fichiers R Markdown est la facilité avec laquelle vous pouvez exporter vos résultats en dehors de R. Tant que vous avez suivi mes points clés 1-> 4 ci-dessus, vous devriez être en mesure de convertir facilement tous les resultats de vos commandes ainsi que votre texte dans un beau rapport, dans le format de votre choix (PDF / Word / HTML) en appuyant simplement sur le bouton `Knit` en haut a gauche et en sélectionnant le format de sortie voulu. Vous serez invité à enregistrer votre document s'il y a des modifications non enregistrées.
+.
 ```{r echo=FALSE, out.width="40%", fig.align='left'}
 knitr::include_graphics("images/knit.JPG")
 ```
 
 
-And the first time you do this you will probably be asked to install some libraries within R. Try it now using either of the solutions RMD files that you have downloaded, and should still have open in RStudio.
+Et la première fois que vous faites cela, il vous sera probablement demandé d'installer certaines packages dans R. Essayez de creer un rapport maintenant en utilisant l'un des fichiers RMD de solutions que vous avez téléchargées et qui devraient toujours être ouverts dans RStudio.
 
 
-There are a lot of ways to improve on the default appearance of your output, but going in detail to this is a little beyond the scope of the course. There are some guides in the resources section of the workbook which may help you if you are interested in learning more.
+Il existe de nombreuses façons d'améliorer l'apparence par défaut de votre sortie, mais y aller en détail dépasse un peu le cadre du cours. Il existe des guides dans la section des ressources du manuel qui peuvent vous aider si vous souhaitez en savoir plus.
 
 
-You may see online people using the .R format script file, instead of the .RMD format markdown file. This is an older format for writing R scripts which does not contain any of the interactive features or the ability to write and format text outside of R commands. When writing your own files we strongly recommend using the RMD format. The RMD file is specific to RStudio - so if you do ever come across a strange person who uses R but not RStudio (they do exist, but are something of an endangered species!) they might prefer to use the .R script file instead of the .RMD markdown file. When you become more of an experienced R user, you may also find .R script files useful when you are writing code to create functions or applications, rather than writing code for working with your own data.
+Vous verrez surement des personnes utiliser des scripts au format .R au lieu du fichier Markdown au format .RMD. Il s'agit d'un format plus ancien pour l'écriture de scripts R qui ne contient aucune des fonctionnalités interactives ou la possibilité d'écrire et de formater du texte en dehors des commandes R. Lors de l'écriture de vos propres fichiers, nous vous recommandons d'utiliser le format RMD. Le fichier RMD est spécifique à RStudio - donc si vous rencontrez une personne qui utilise R mais pas RStudio (ils existent, mais sont une espèce en voie de disparition!), Ils préféreront peut-être utiliser le fichier de script .R au lieu du fichier Markdown .RMD. Lorsque vous deviendrez un utilisateur R expérimenté, vous verrez surement que parfois utiliser des script .R est tres utile dans certaines situation, pour créer des fonctions ou des applications notamment, plutôt que d'écrire du code pour travailler avec vos propres données.
 
-In the next workbook we will cover importing data into R, and you can then start building your own RMD files from scratch to interact with R!
+Dans la prochaine partie du toriel, nous parlerons de l'importation de données dans R, et vous pourrez ensuite commencer à créer vos propres fichiers RMD à partir de zéro pour interagir avec R!
 
 
 
-## Appendix:  Useful reference links  
+## Annexe :  Liens utiles
 
-RStudio website:<a href="https://rstudio.com/" target="_blank">https://rstudio.com/   </a> 
+Site officiel de RStudio:<a href="https://rstudio.com/" target="_blank">https://rstudio.com/   </a> 
 
-R-project website:<a href="https://www.r-project.org/" target="_blank">https://www.r-project.org/   </a> 
+Site officiel de R:<a href="https://www.r-project.org/" target="_blank">https://www.r-project.org/   </a> 
 
-Andy Field's Getting started in R and RStudio:<a href="http://milton-the-cat.rocks/learnr/r/r_getting_started" target="_blank">http://milton-the-cat.rocks/learnr/r/r_getting_started   </a> 
+Tutoriel en format video d'Andy Field sur la prise en main de R et RStudio (en anglais):<a href="http://milton-the-cat.rocks/learnr/r/r_getting_started" target="_blank">http://milton-the-cat.rocks/learnr/r/r_getting_started   </a> 
 
-R Markdown documentation:<a href="https://rmarkdown.rstudio.com/lesson-1.html" target="_blank">https://rmarkdown.rstudio.com/lesson-1.html   </a> 
+Documentation officielle R Markdown (en anglais):<a href="https://rmarkdown.rstudio.com/lesson-1.html" target="_blank">https://rmarkdown.rstudio.com/lesson-1.html   </a> 
 
-RStudio CheatSheet:<a href="https://rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf" target="_blank">https://rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf   </a>
+Chapitre en francais sur l'utilisation de fichier R Markdown:<a href="https://juba.github.io/tidyverse/13-rmarkdown.html" target="_blank">https://juba.github.io/tidyverse/13-rmarkdown.html   </a> 
 
-R Markdown CheatSheet:<a href="https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank">https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf   </a>
+Aide-mémoire RStudio en francais:<a href="https://github.com/rstudio/cheatsheets/raw/master/translations/french/rstudio-IDE-cheatsheet.pdf" target="_blank">https://github.com/rstudio/cheatsheets/raw/master/translations/french/rstudio-IDE-cheatsheet.pdf </a>
+
+Aide-mémoire de R Markdown (en anglais):<a href="https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank">https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf   </a>
 
 

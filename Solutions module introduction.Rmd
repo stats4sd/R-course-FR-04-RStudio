@@ -1,0 +1,146 @@
+
+## Module 1:  Solutions aux exercices
+
+### Question 1:
+J'essaie d'utiliser R comme calculatrice et je reçois une erreur. Pouvez-vous repérer mon erreur et mettre à jour le code ?
+
+
+(42-5/(88+6)
+
+
+
+### Réponse 1:
+
+Mes parenthèses sont mal spécifiées car j'ouvre deux séries de parenthèses mais n'en ferme qu'une.
+La bonne solution est probablement soit `(42-5)/(88+6)`, soit `42-(5/88+6)`, selon ce que je voulais faire. La première est probablement la plus probable !
+
+```{r}
+(42-5)/(88+6)
+```
+
+
+### Question 2
+
+Cette question utilisera le même jeu de données sur les tremblements de terre que l'on a utilise dans le quiz, montrant la magnitude des séismes survenus dans l'océan autour des iles Fidji depuis 1964, ainsi que le nombre de stations différentes signalant des tremblement de terre. Ces données ont été chargées dans les sessions R sous la forme d'un tableau de données appelée `quakes` 
+
+### Question 2a
+Ecrire une commande pour déterminer letremblement de terre avec la plus grande magnitude (`mag`) enregistré ?
+
+
+### Réponse 2a
+
+Je dois utiliser la commande `max`, et ensuite spécifier que je veux utiliser la colonne `mag` dans le jeu de données `quakes` en utilisant le nom du tableau de données `quakes` suivi d'un `$`, suivi du nom de colonne `mag`.
+
+```{r}
+max(quakes$mag)
+
+```
+
+### Question 2b
+Ecrire une commande pour déterminer la plus petite profondeur (`depth`) sous la surface à laquelle un tremblement de terre a été enregistré ?
+
+### Réponse 2b
+
+Je dois utiliser la commande `min`, puis spécifier que je veux utiliser la colonne `depth` dans le jeu de données `quakes` en utilisant le nom du tableau de données `quakes` suivi d'un `$` suivi du nom de colonne `depth`.
+
+```{r}
+min(quakes$mag)
+```
+
+
+### Question 2c
+Je voudrais obtenir l'écart type de la variable magnitude des tremblements de terre des données `quakes`. Voyez si vous pouvez trouver la fonction de l'écart type dans R (nous ne l'avons pas encore mentionné dans le tutoriel) et appliquez-la ensuite à la colonne correspondante.
+
+### Réponse 2c
+
+En cherchant un peu sur internet, vous avez probablement trouvé que la fonction pour calculer l'ecart-type est `sd`. Cela fonctionne de la même manière que les fonctions `max` et `min`.
+```{r}
+sd(quakes$mag)
+```
+
+
+
+### Question 3
+J'utilise à nouveau les données `airquality` et je suis maintenant intéressé par la variable `Solar.R`. Je sais qu'il peut parfois y avoir des valeurs aberrantes très extrêmes pour cette variable, donc plutôt que de regarder le minimum et le maximum, j'aimerais plutôt regarder le 5e percentile et le 95e percentile. Trouvez ces deux valeurs en utilisant la fonction `quantile`.
+
+
+### Réponse 3
+
+Il y a quelques astuces à noter ici - tout d'abord, lorsque vous regardez la variable Solar.R, assurez-vous que vous remarquez qu'il y a des valeurs manquantes
+```{r}
+airquality$Solar.R
+```
+
+Ainsi, lorsque nous utilisons la fonction quantile, nous obtenons une erreur
+```{r,error=TRUE}
+quantile(airquality$Solar.R)
+```
+Nous devons donc utiliser l'option `na.rm=TRUE`.
+
+```{r}
+quantile(airquality$Solar.R,na.rm=T)
+```
+
+La sortie par défaut n'est pas non plus ce que nous voulons - la question est de savoir quel est le 5e percentile et le 95e percentile. nous devons utiliser l'argument `probs` pour définir les quantiles. Nous pourrions l'écrire une fois pour chaque percentile comme ceci: 
+
+```{r}
+quantile(airquality$Solar.R,na.rm=T,probs=0.05)
+quantile(airquality$Solar.R,na.rm=T,probs=0.95)
+```
+Notez que nous devons spécifier le pourcentage en décimal - c'est-à-dire 5 % = 0,05.
+
+Mais un meilleur moyen serait d'utiliser la fonction c() pour combiner 0,05 et 0,95 et demander les deux percentiles à l'intérieur d'une ligne
+
+```{r}
+quantile(airquality$Solar.R,na.rm=T,probs=c(0.05,0.95))
+```
+
+
+### Question 4:
+Une tâche dont je suis sûr que vous vous souvenez de l'école est de résoudre une équation quadratique en utilisant la formule $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$.
+Ecrivez un code R pour trouver les deux valeurs de x lorsque $x^2-9x+19=0$ . Pour rappel, dans la formule de l'équation quadratique de cet exemple particulier, `a` serait 1 ; `b` serait -9 et `c` serait 19
+
+### Réponse 4
+
+Je vais écrire cela en termes généraux de sorte que si je voulais changer mon code pour une formule différente plus tard, alors je pourrais le faire. Cependant, je ne vous ai pas explicitement demandé de le faire, donc si vous avez directement branché 1, -9 et 19 dans une formule, cela serait quand même bien.
+
+
+Les parenthèses sont incroyablement faciles à se tromper sur ce point. Faites très attention à l'endroit où vous les placez ! Ma solution ci-dessous comporte le nombre minimum de parenthèses nécessaires (en raison des règles du de priorités), mais il n'y a pas de mal à inclure des parenthèses supplémentaires, juste pour être sûr, si vous voulez vous assurer que l'ordre des opérations se déroule comme vous l'attendez.
+
+Assurez-vous d'écrire `4*a*c` pour les multiplier ensemble ; R ne pourrait pas interpréter `4ac`.
+R peut intercepter `-b` à condition que b soit un nombre. Mais écrire `1*b` ici est peut-être un peu plus explicite et plus clair.
+
+
+```{r}
+
+a <- 1
+b <- -9
+c <- 19
+
+(-1*b+sqrt(b^2-4*a*c))/(2*a)
+(-1*b-sqrt(b^2-4*a*c))/(2*a)
+
+
+```
+
+Une astuce supplémentaire consisterait à utiliser la fonction `c()` pour remplacer l'opérateur $\pm$ car cela équivaut à dire "plus une fois" ou "moins une fois", de sorte que nous puissions fournir un vecteur de `-1` et `1` au code que nous écrivons afin de n'avoir à écrire qu'une seule ligne pour la partie principale de la solution.
+```{r}
+
+a <- 1
+b <- -9
+c <- 19
+
+x<-(-1*b+c(1,-1)*sqrt(b^2-4*a*c))/(2*a)
+
+x
+
+```
+
+Comme je suis sûr que vous l'avez appris à l'école, il est toujours bon de remettre ces chiffres dans l'équation pour voir si cela a un sens ! Sauvegarder mon objet dans x à l'étape précédente rend la chose plus facile.
+
+```{r}
+
+x^2 -(9*x) +19
+```
+Vous verrez ici que vous n'obtenez pas vraiment de zéro pour le premier chiffre. Malheureusement, la lettre R contient parfois des erreurs d'arrondi. Rappelez-vous en notation scientifique que "3.552714e-15" est égal à "0.00000000000000355", je pense donc être heureux de conclure que ma formule est correcte !
+
